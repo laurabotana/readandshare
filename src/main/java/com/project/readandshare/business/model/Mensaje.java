@@ -1,6 +1,6 @@
 package com.project.readandshare.business.model;
 
-import java.io.Serializable;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,28 +9,32 @@ import javax.persistence.GenerationType;
 //import javax.persistence.GeneratedValue;
 //import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="MENSAJE") 
-public class Mensaje implements Serializable {
+public class Mensaje {
 
 	@Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "EMISOR", nullable = false)
-    private Integer emisor;
-    
-    @Column(name = "RECEPTOR", nullable = false)
-    private Integer receptor;
+	@ManyToOne
+	@JoinColumn(name = "EMISOR", nullable = false)
+    private Usuario emisor;
+	
+	@ManyToOne
+	@JoinColumn(name = "RECEPTOR", nullable = false)
+    private Usuario receptor;
     
     @Column(name = "MENSAJE", nullable = false)
     private String mensaje;
     
     @Column(name = "FECHA", nullable = false)
-    private String fecha;
+    private Calendar fecha;
     
    	public Mensaje() {
 		super();
@@ -44,19 +48,19 @@ public class Mensaje implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getEmisor() {
+	public Usuario getEmisor() {
 		return emisor;
 	}
 
-	public void setEmisor(Integer emisor) {
+	public void setEmisor(Usuario emisor) {
 		this.emisor = emisor;
 	}
 
-	public Integer getReceptor() {
+	public Usuario getReceptor() {
 		return receptor;
 	}
 
-	public void setReceptor(Integer receptor) {
+	public void setReceptor(Usuario receptor) {
 		this.receptor = receptor;
 	}
 
@@ -68,11 +72,11 @@ public class Mensaje implements Serializable {
 		this.mensaje = mensaje;
 	}
 
-	public String getFecha() {
+	public Calendar getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(String fecha) {
+	public void setFecha(Calendar fecha) {
 		this.fecha = fecha;
 	}
 

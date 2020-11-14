@@ -43,10 +43,10 @@
 	          <h2>Libros más valorados</h2>
 	        </div>
 	        <div class="row">
-	            <div class="col-md-6 col-lg-4">
+	            <div class="col-4 col-md-2">
 	                <div class="card border-0 transform-on-hover">
-	                	<a class="lightbox" href="static/img/image1.jpg">
-	                		<img src="static/img/image1.jpg" alt="Card Image" class="card-img-top">
+	                	<a class="lightbox" href="static/img/quijote.jpg">
+	                		<img src="static/img/quijote.jpg" alt="Card Image" class="card-img-top">
 	                	</a>
 	                    <div class="card-body">
 	                        <h6><a href="#">El quijote</a></h6>
@@ -54,10 +54,10 @@
 	                    </div>
 	                </div>
 	            </div>
-	            <div class="col-md-6 col-lg-4">
+	            <div class="col-4 col-md-2">
 	                <div class="card border-0 transform-on-hover">
-						<a class="lightbox" href="static/img/image2.jpg">
-		                	<img src="static/img/image2.jpg" alt="Card Image" class="card-img-top">
+						<a class="lightbox" href="static/img/quijote.jpg">
+		                	<img src="static/img/quijote.jpg" alt="Card Image" class="card-img-top">
 		                </a>
 	                    <div class="card-body">
 	                        <h6><a href="#">El quijote</a></h6>
@@ -65,10 +65,10 @@
 	                    </div>
 	                </div>
 	            </div>
-	            <div class="col-md-6 col-lg-4">
+	            <div class="col-4 col-md-2">
 	                <div class="card border-0 transform-on-hover">
-	                	<a class="lightbox" href="static/img/image3.jpg">
-	                		<img src="static/img/image3.jpg" alt="Card Image" class="card-img-top">
+	                	<a class="lightbox" href="static/img/quijote.jpg">
+	                		<img src="static/img/quijote.jpg" alt="Card Image" class="card-img-top">
 	                	</a>
 	                    <div class="card-body">
 	                        <h6><a href="#">El quijote</a></h6>
@@ -76,10 +76,10 @@
 	                    </div>
 	                </div>
 	            </div>
-	            <div class="col-md-6 col-lg-4">
+	            <div class="col-4 col-md-2">
 	                <div class="card border-0 transform-on-hover">
-	                	<a class="lightbox" href="static/img/image4.jpg">
-	                		<img src="static/img/image4.jpg" alt="Card Image" class="card-img-top">
+	                	<a class="lightbox" href="static/img/quijote.jpg">
+	                		<img src="static/img/quijote.jpg" alt="Card Image" class="card-img-top">
 	                	</a>
 	                    <div class="card-body">
 	                        <h6><a href="#">El quijote</a></h6>
@@ -87,10 +87,10 @@
 	                    </div>
 	                </div>
 	            </div>
-	            <div class="col-md-6 col-lg-4">
+	            <div class="col-4 col-md-2">
 	                <div class="card border-0 transform-on-hover">
-	                	<a class="lightbox" href="static/img/image5.jpg">
-	                		<img src="static/img/image5.jpg" alt="Card Image" class="card-img-top">
+	                	<a class="lightbox" href="static/img/quijote.jpg">
+	                		<img src="static/img/quijote.jpg" alt="Card Image" class="card-img-top">
 	                	</a>
 	                    <div class="card-body">
 	                        <h6><a href="#">El quijote</a></h6>
@@ -98,10 +98,10 @@
 	                    </div>
 	                </div>
 	            </div>
-	            <div class="col-md-6 col-lg-4">
+	            <div class="col-4 col-md-2">
 	                <div class="card border-0 transform-on-hover">
-	                	<a class="lightbox" href="static/img/image6.jpg">
-	                		<img src="static/img/image6.jpg" alt="Card Image" class="card-img-top">
+	                	<a class="lightbox" href="static/img/quijote.jpg">
+	                		<img src="static/img/quijote.jpg" alt="Card Image" class="card-img-top">
 	                	</a>
 	                    <div class="card-body">
 	                        <h6><a href="#">El quijote</a></h6>

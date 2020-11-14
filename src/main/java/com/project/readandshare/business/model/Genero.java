@@ -1,6 +1,5 @@
 package com.project.readandshare.business.model;
 
-import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="GENERO") 
-public class Genero implements Serializable {
+public class Genero {
 
 	@Id
     @Column(name = "ID")

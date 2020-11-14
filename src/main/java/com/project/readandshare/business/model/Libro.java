@@ -1,7 +1,5 @@
 package com.project.readandshare.business.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,11 +7,13 @@ import javax.persistence.GenerationType;
 //import javax.persistence.GeneratedValue;
 //import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="LIBRO") 
-public class Libro implements Serializable {
+public class Libro {
 
 	@Id
     @Column(name = "ID")
@@ -35,9 +35,11 @@ public class Libro implements Serializable {
     @Column(name = "SINOPSIS", nullable = false)
     private String sinopsis;
     
-    @Column(name = "AUTOR", nullable = false)
-    private Integer autor;
+    @ManyToOne
+	@JoinColumn(name = "AUTOR", nullable = false)
+    private Autor autor;
     
+       
     @Column(name = "IMAGEN", nullable = false)
     private byte[] imagen;
 
@@ -93,11 +95,12 @@ public class Libro implements Serializable {
 		this.sinopsis = sinopsis;
 	}
 
-	public Integer getAutor() {
+
+	public Autor getAutor() {
 		return autor;
 	}
 
-	public void setAutor(Integer autor) {
+	public void setAutor(Autor autor) {
 		this.autor = autor;
 	}
 

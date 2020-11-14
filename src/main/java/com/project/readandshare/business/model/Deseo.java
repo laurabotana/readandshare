@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 //import javax.persistence.GeneratedValue;
 //import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,11 +20,13 @@ public class Deseo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "USUARIO", nullable = false)
-    private Integer usuario;
+	@ManyToOne
+	@JoinColumn(name = "USUARIO", nullable = false)
+    private Usuario usuario;
     
-    @Column(name = "LIBRO", nullable = false)
-    private Integer libro;
+	@ManyToOne   
+    @JoinColumn(name = "LIBRO", nullable = false)
+    private Libro libro;
     
     
    	public Deseo() {
@@ -40,28 +44,24 @@ public class Deseo {
 	}
 
 
-	public Integer getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
 
 
-	public void setUsuario(Integer usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
 
-	public Integer getLibro() {
+	public Libro getLibro() {
 		return libro;
 	}
 
 
-	public void setLibro(Integer libro) {
+	public void setLibro(Libro libro) {
 		this.libro = libro;
 	}
-
-
-	
-		
 
 	
 	

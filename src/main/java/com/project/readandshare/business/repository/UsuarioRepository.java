@@ -11,8 +11,5 @@ import com.project.readandshare.business.model.Usuario;
 @Repository
 public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
 
-//	@Query(value = "SELECT * FROM USUARIO", nativeQuery = true)
-	@Query(value = "SELECT u FROM Usuario u")
-	List<Usuario> consultarUsuarios();
-	
+
 }
