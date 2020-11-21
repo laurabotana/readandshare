@@ -7,4 +7,8 @@ public interface UsuarioService {
 
 	void createUsuario(UsuarioDTO usuarioDTO) throws ReadandshareException;
 	
+	Boolean loginUsuario(String login, String password) throws ReadandshareException;
+	
+	UsuarioDTO consultarDatosUsuario(String login);
+	
 }

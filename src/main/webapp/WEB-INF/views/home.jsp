@@ -26,7 +26,10 @@
 			<a class="nav-link" href="miPerfil.html">Mi perfil</a>
 		  </li>
 		  <li class="nav-item">
-			<a class="nav-link" href="register.html">Registrarse</a>
+			<a class="nav-link" href="formRegistro.html">Registrarse</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link" href="login.html">Loguearse</a>
 		  </li>
 		</ul>
 		
