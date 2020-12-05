@@ -31,6 +31,12 @@
 		  <li class="nav-item">
 			<a class="nav-link" href="login.html">Loguearse</a>
 		  </li>
+		  <li class="nav-item">
+			<a class="nav-link" href="formAutor.html">Añadir Autor</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link" href="formLibro.html">Añadir Libro</a>
+		  </li>
 		</ul>
 		
 		<form class="form-inline my-2 my-lg-0">

@@ -1,12 +1,10 @@
 package com.project.readandshare.dto;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class AutorDTO implements Serializable {
+public class AutorDTO  {
 
-	private static final long serialVersionUID = -4121881759612859852L;
-	
+
 	private Integer id;
 	private String nombre;
 	private List<LibroDTO> libros;
