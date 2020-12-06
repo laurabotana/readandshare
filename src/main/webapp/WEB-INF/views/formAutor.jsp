@@ -1,10 +1,6 @@
-<%@ include file="/WEB-INF/views/include.jsp"%>
-
-<html>
-<head>
-<title>Form Autor</title>
-</head>
-<body>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<tiles:insertDefinition name="defaultTemplate">
+	<tiles:putAttribute name="body">
 	<div class="container">
 
 		<form class=p-4 method="POST" action="addAutor.html" class="needs-validation"
@@ -26,5 +22,5 @@
 		</form>
 
 	</div>
-</body>
-</html>
+	</tiles:putAttribute>
+</tiles:insertDefinition>

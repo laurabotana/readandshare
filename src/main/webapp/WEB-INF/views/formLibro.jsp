@@ -1,10 +1,7 @@
-<%@ include file="/WEB-INF/views/include.jsp"%>
-
-<html>
-<head>
-<title>Form Libro</title>
-</head>
-<body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<tiles:insertDefinition name="defaultTemplate">
+	<tiles:putAttribute name="body">
 	<div class="container">
 
 		<form class="p-4" method="POST" action="addLibro.html" enctype="multipart/form-data"
@@ -59,5 +56,5 @@
 		</form>
 
 	</div>
-</body>
-</html>
+	</tiles:putAttribute>
+</tiles:insertDefinition>
