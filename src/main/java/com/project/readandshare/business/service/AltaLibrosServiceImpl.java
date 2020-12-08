@@ -35,12 +35,17 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 
 	@Override
 	public void createLibro(LibroDTO libroDTO) throws ReadandshareException {
+		if(libroDTO == null || libroDTO.getAno() == null || libroDTO.getAutor() == null || libroDTO.getEditorial() == null
+				|| libroDTO.getImagen() == null || libroDTO.getImagen().getSize() == 0
+				|| libroDTO.getSinopsis() == null || libroDTO.getTitulo() == null) {
+			throw new ReadandshareException("Faltan campos requeridos");
+		}
 		Autor autor = this.autorRepository.consultarAutor(libroDTO.getAutor());
 		Libro libro = new Libro();
 		libro.setAno(libroDTO.getAno());
 		libro.setEditorial(libroDTO.getEditorial());
 		libro.setImagen(libroDTO.getImagen().getBytes());
-		libro.setNpag(libroDTO.getNumPaginas());
+		libro.setNpag(libroDTO.getNumPaginas());	
 		libro.setSinopsis(libroDTO.getSinopsis());
 		libro.setTitulo(libroDTO.getTitulo());
 		libro.setAutor(autor);

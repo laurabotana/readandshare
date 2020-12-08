@@ -4,7 +4,7 @@
 		<div class="container">
 
 			<form class=p-4 method="POST" action="loginUsuario.html"
-				class="needs-validation" novalidate>
+				class="needs-validation">
 
 				<div class="form-row">
 					<div class="col-12">

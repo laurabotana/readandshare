@@ -5,7 +5,7 @@
 	<div class="container">
 
 		<form class="p-4" method="POST" action="addLibro.html" enctype="multipart/form-data"
-			class="needs-validation" novalidate>
+			class="needs-validation">
 
 			<div class="form-row ">
 				<div class="col-12">
@@ -34,7 +34,7 @@
 						required maxlength="500" rows="5" cols="20"></textarea>
 				</div>
 				<div class="col-12">
-					<label for="autor">Autor:<span class="red">*</span></label></br>
+					<label for="autor">Autor:<span class="red">*</span></label>
 					<select name="autor" id="autor">
 						<c:forEach items="${model.autores}" var="autor">
 							<option value="${autor.id}">${autor.nombre}</option>

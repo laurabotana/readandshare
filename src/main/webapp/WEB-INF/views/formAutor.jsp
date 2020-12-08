@@ -3,8 +3,7 @@
 	<tiles:putAttribute name="body">
 	<div class="container">
 
-		<form class=p-4 method="POST" action="addAutor.html" class="needs-validation"
-			novalidate>
+		<form class=p-4 method="POST" action="addAutor.html" class="needs-validation">
 
 			<div class="form-row ">
 				<div class="col-12">
