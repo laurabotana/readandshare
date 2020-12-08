@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,16 +22,25 @@ import com.project.readandshare.dto.LibroDTO;
 @Controller
 public class AltaLibrosController {
 
-	//protected final Log logger = LogFactory.getLog(getClass());
-
-	
-    
     @Autowired
     private AltaLibrosService altaLibrosService;
 	
+    private Boolean tieneSesionIniciada(HttpServletRequest request) {
+    	Boolean sesionIniciada = Boolean.FALSE;
+    	if(request.getSession().getAttribute("login") != null) {
+    		sesionIniciada = Boolean.TRUE;
+    	}
+    	return sesionIniciada;
+    }
+    
     @RequestMapping(value="/formAutor.html")
-    public ModelAndView formAutor() {		
+    public ModelAndView formAutor(HttpServletRequest request) {
+    	Boolean sesionIniciada = this.tieneSesionIniciada(request);
+    	if(Boolean.FALSE.equals(sesionIniciada)) {
+    		return new ModelAndView(new RedirectView("login.html"));
+    	}
         Map<String, Object> myModel = new HashMap<String, Object>();
+        myModel.put("sesionIniciada", sesionIniciada);
         return new ModelAndView("formAutor", "model", myModel);
     }
     
@@ -39,10 +51,15 @@ public class AltaLibrosController {
 	}
 	
 	@RequestMapping(value="/formLibro.html")
-    public ModelAndView formLibro() throws ReadandshareException {		
+    public ModelAndView formLibro(HttpServletRequest request) throws ReadandshareException {
+    	Boolean sesionIniciada = this.tieneSesionIniciada(request);
+    	if(Boolean.FALSE.equals(sesionIniciada)) {
+    		return new ModelAndView(new RedirectView("login.html"));
+    	}
 		List<AutorDTO> autores = this.altaLibrosService.getListaAutores();
         Map<String, Object> myModel = new HashMap<String, Object>();
         myModel.put("autores", autores);
+        myModel.put("sesionIniciada", sesionIniciada);
         return new ModelAndView("formLibro", "model", myModel);
     }
     
@@ -52,6 +69,11 @@ public class AltaLibrosController {
 		return new ModelAndView(new RedirectView("home.html"));
 	}
 
+	@RequestMapping(value="/libro{idLibro}.html")
+    public ModelAndView detalleLibro(HttpServletRequest request, @PathVariable("idLibro") Integer idLibro) throws ReadandshareException {
+        Map<String, Object> myModel = new HashMap<String, Object>();
+        return new ModelAndView("detalleLibro", "model", myModel);
+    }
 	
 }
 

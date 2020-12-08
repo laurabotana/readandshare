@@ -12,8 +12,10 @@ import com.project.readandshare.business.model.Autor;
 import com.project.readandshare.business.model.Libro;
 import com.project.readandshare.business.repository.AutorRepository;
 import com.project.readandshare.business.repository.LibroRepository;
+import com.project.readandshare.business.repository.ValoracionRepository;
 import com.project.readandshare.dto.AutorDTO;
 import com.project.readandshare.dto.LibroDTO;
+import com.project.readandshare.dto.ValoracionLibroDTO;
 
 @Service(AltaLibrosServiceImpl.ID)
 public class AltaLibrosServiceImpl implements AltaLibrosService {
@@ -26,8 +28,26 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 	@Autowired
 	private LibroRepository libroRepository;
 	
+	@Autowired
+	private ValoracionRepository valoracionRepository;
+	
+	private void validateAutor(AutorDTO autorDTO) throws ReadandshareException {
+		if(autorDTO == null || autorDTO.getNombre() == null) {
+			throw new ReadandshareException("Existen campos obligatorios de Autor que no se han cubierto");
+		}
+	}
+	
+	private void validateLibro(LibroDTO libroDTO) throws ReadandshareException {
+		if(libroDTO == null || libroDTO.getAno() == null || libroDTO.getAutor() == null || libroDTO.getEditorial() == null
+				|| libroDTO.getImagen() == null || libroDTO.getImagen().getSize() == 0
+				|| libroDTO.getSinopsis() == null || libroDTO.getTitulo() == null) {
+			throw new ReadandshareException("Existen campos obligatorios de Libro que no se han cubierto");
+		}
+	}
+	
 	@Override
 	public void createAutor(AutorDTO autorDTO) throws ReadandshareException {
+		this.validateAutor(autorDTO);
 		Autor autor = new Autor();
 		autor.setNombre(autorDTO.getNombre());
 		this.autorRepository.save(autor);
@@ -35,11 +55,7 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 
 	@Override
 	public void createLibro(LibroDTO libroDTO) throws ReadandshareException {
-		if(libroDTO == null || libroDTO.getAno() == null || libroDTO.getAutor() == null || libroDTO.getEditorial() == null
-				|| libroDTO.getImagen() == null || libroDTO.getImagen().getSize() == 0
-				|| libroDTO.getSinopsis() == null || libroDTO.getTitulo() == null) {
-			throw new ReadandshareException("Faltan campos requeridos");
-		}
+		this.validateLibro(libroDTO);
 		Autor autor = this.autorRepository.consultarAutor(libroDTO.getAutor());
 		Libro libro = new Libro();
 		libro.setAno(libroDTO.getAno());
@@ -71,6 +87,10 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 		return autoresDTO;
 	}
 
-
+	@Override
+	public List<ValoracionLibroDTO> getListaValoraciones() throws ReadandshareException {
+		List<ValoracionLibroDTO> valoraciones = this.valoracionRepository.consultarLibrosValoraciones();
+		return valoraciones;
+	}
 
 }

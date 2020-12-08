@@ -5,6 +5,7 @@ import java.util.List;
 import com.project.readandshare.business.exception.ReadandshareException;
 import com.project.readandshare.dto.AutorDTO;
 import com.project.readandshare.dto.LibroDTO;
+import com.project.readandshare.dto.ValoracionLibroDTO;
 
 public interface AltaLibrosService {
 
@@ -13,5 +14,7 @@ public interface AltaLibrosService {
 	void createLibro(LibroDTO libroDTO) throws ReadandshareException;
 	
 	List<AutorDTO> getListaAutores() throws ReadandshareException;
+	
+	List<ValoracionLibroDTO> getListaValoraciones() throws ReadandshareException;
 	
 }

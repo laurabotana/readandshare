@@ -1,3 +1,4 @@
+<%@ include file="/WEB-INF/views/include.jsp" %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<a class="navbar-brand" href="#">
 		<img src="static/img/icono.png" width="30" height="30" alt="">
@@ -13,24 +14,26 @@
 		  <li class="nav-item active">
 			<a class="nav-link" href="#">Más valorados <span class="sr-only">(current)</span></a>
 		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="login.html">Loguearse</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="formRegistro.html">Registrarse</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="miPerfil.html">Mi perfil</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="formAutor.html">Añadir Autor</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="formLibro.html">Añadir Libro</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="cercanos.html">Buscar cercanos</a>
-		  </li>
+		  <c:choose>
+		  	<c:when test = "${!model.sesionIniciada}">
+				<li class="nav-item"><a class="nav-link" href="login.html">Loguearse</a>
+				</li>
+				<li class="nav-item"><a class="nav-link"
+					href="formRegistro.html">Registrarse</a></li>
+			</c:when>
+		  	<c:otherwise>
+				<li class="nav-item"><a class="nav-link" href="miPerfil.html">Mi
+						perfil</a></li>
+				<li class="nav-item"><a class="nav-link" href="formAutor.html">Añadir
+						Autor</a></li>
+				<li class="nav-item"><a class="nav-link" href="formLibro.html">Añadir
+						Libro</a></li>
+				<li class="nav-item"><a class="nav-link" href="cercanos.html">Buscar
+						cercanos</a></li>
+				<li class="nav-item"><a class="nav-link" href="logout.html">Cerrar
+							sesión</a></li>
+			</c:otherwise>
+		  </c:choose>
 		</ul>
 	</div>
 </nav>

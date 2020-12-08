@@ -1,25 +1,47 @@
 package com.project.readandshare.dto;
 
 import java.io.Serializable;
+import java.util.Base64;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import com.project.readandshare.business.model.Libro;
 
 public class LibroDTO implements Serializable {
 
 	private static final long serialVersionUID = 9063972672756616961L;
 	
+	private Integer id;
 	private String titulo;
 	private String editorial;
 	private Integer ano;
 	private Integer numPaginas;
 	private String sinopsis;
 	private CommonsMultipartFile imagen;
+	private String imagenStr;
 	private Integer autor;
+	private String nombreAutor;
 	
 	public LibroDTO() {
 		super();
 	}
+	
+	public LibroDTO(Libro libro) {
+		super();
+		this.id = libro.getId();
+		this.titulo = libro.getTitulo();
+		this.nombreAutor = libro.getAutor().getNombre();
+		this.imagenStr = Base64.getEncoder().encodeToString(libro.getImagen());
+	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public String getTitulo() {
 		return titulo;
 	}
@@ -74,6 +96,22 @@ public class LibroDTO implements Serializable {
 
 	public void setAutor(Integer autor) {
 		this.autor = autor;
+	}
+
+	public String getNombreAutor() {
+		return nombreAutor;
+	}
+
+	public void setNombreAutor(String nombreAutor) {
+		this.nombreAutor = nombreAutor;
+	}
+
+	public String getImagenStr() {
+		return imagenStr;
+	}
+
+	public void setImagenStr(String imagenStr) {
+		this.imagenStr = imagenStr;
 	}
 
 }

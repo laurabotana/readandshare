@@ -20,8 +20,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+	private void validate(UsuarioDTO usuarioDTO) throws ReadandshareException {
+		if(usuarioDTO == null || usuarioDTO.getApellidos() == null || usuarioDTO.getLocalidad() == null
+				|| usuarioDTO.getLogin() == null || usuarioDTO.getMail() == null || usuarioDTO.getNombre() == null
+				|| usuarioDTO.getPassword() == null || usuarioDTO.getProvincia() == null) {
+			throw new ReadandshareException("Existen campos obligatorios de Usuario que no se han cubierto");
+		}
+	}
+	
 	@Override
 	public void createUsuario(UsuarioDTO usuarioDTO) throws ReadandshareException {
+		this.validate(usuarioDTO);
 		Usuario usuario = new Usuario();
 		usuario.setLogin(usuarioDTO.getLogin());
 		usuario.setPassword(this.passwordCipherComponent.encrypt(usuarioDTO.getPassword()));
@@ -35,6 +44,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Boolean loginUsuario(String login, String password) throws ReadandshareException {
+		if(login == null || password == null) {
+			throw new ReadandshareException("Faltan campos requeridos");
+		}
 		Boolean credencialesCorrectas = false;
 		String passwordEncrypted = this.passwordCipherComponent.encrypt(password);
 		Usuario usuario = this.usuarioRepository.consultarUsuario(login);
@@ -51,6 +63,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		UsuarioDTO usuarioDTO = new UsuarioDTO();
 		Usuario usuario = this.usuarioRepository.consultarUsuario(login);
 		if(usuario != null) {
+			usuarioDTO.setLogin(usuario.getLogin());
 			usuarioDTO.setApellidos(usuario.getApellidos());
 			usuarioDTO.setLocalidad(usuario.getLocalidad());
 			usuarioDTO.setMail(usuario.getMail());

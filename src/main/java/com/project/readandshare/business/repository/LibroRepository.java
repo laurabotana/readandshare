@@ -8,6 +8,4 @@ import com.project.readandshare.business.model.Libro;
 @Repository
 public interface LibroRepository extends CrudRepository<Libro, Integer> {
 
-
-	
 }

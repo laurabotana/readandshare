@@ -8,27 +8,27 @@
 			</div>
 			<p>
 				Alias:
-				<c:out value="${perfil.login}" />
+				<c:out value="${model.usuario.login}" />
 			</p>
 			<p>
 				Mail:
-				<c:out value="${perfil.mail}" />
+				<c:out value="${model.usuario.mail}" />
 			</p>
 			<p>
 				Nombre:
-				<c:out value="${perfil.nombre}" />
+				<c:out value="${model.usuario.nombre}" />
 			</p>
 			<p>
 				Apellidos:
-				<c:out value="${perfil.apellidos}" />
+				<c:out value="${model.usuario.apellidos}" />
 			</p>
 			<p>
 				Provincia:
-				<c:out value="${perfil.provincia}" />
+				<c:out value="${model.usuario.provincia}" />
 			</p>
 			<p>
 				Localidad:
-				<c:out value="${perfil.localidad}" />
+				<c:out value="${model.usuario.localidad}" />
 			</p>
 
 		</div>
