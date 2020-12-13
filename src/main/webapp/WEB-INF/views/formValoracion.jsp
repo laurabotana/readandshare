@@ -2,7 +2,6 @@
 <tiles:insertDefinition name="defaultTemplate">
 	<tiles:putAttribute name="body">
 	<div class="container">
-
 		<form class=p-4 method="POST" action="addValoracion.html"
 			class="needs-validation">
 
@@ -27,9 +26,7 @@
 				<button class="btn btn-primary" type="submit" name="submit">Guardar</button>
 				<button class="btn btn-success" type="reset" name="reset">Limpiar</button>
 			</div>
-
 		</form>
-
 	</div>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

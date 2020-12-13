@@ -1,7 +1,5 @@
-<div class="footer">
-	<div class="footer-bottom">
-		<div class="container">		
-			<p>Copyright &copy; 2021 Read And Share</p>			
-		</div>
+<div class="page-footer container-fluid fixed-bottom text-center">
+	<div class="container">		
+		<p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Read And Share</p>			
 	</div>
 </div>

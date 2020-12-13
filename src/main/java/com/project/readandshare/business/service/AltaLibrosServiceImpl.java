@@ -1,6 +1,7 @@
 package com.project.readandshare.business.service;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,14 @@ import org.springframework.util.CollectionUtils;
 import com.project.readandshare.business.exception.ReadandshareException;
 import com.project.readandshare.business.model.Autor;
 import com.project.readandshare.business.model.Libro;
+import com.project.readandshare.business.model.Usuario;
+import com.project.readandshare.business.model.Valoracion;
 import com.project.readandshare.business.repository.AutorRepository;
 import com.project.readandshare.business.repository.LibroRepository;
+import com.project.readandshare.business.repository.UsuarioRepository;
 import com.project.readandshare.business.repository.ValoracionRepository;
 import com.project.readandshare.dto.AutorDTO;
+import com.project.readandshare.dto.DatosValoracionLibroDTO;
 import com.project.readandshare.dto.LibroDTO;
 import com.project.readandshare.dto.ValoracionLibroDTO;
 
@@ -30,6 +35,16 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 	
 	@Autowired
 	private ValoracionRepository valoracionRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	private void validateValoracion(DatosValoracionLibroDTO datosValoracion) throws ReadandshareException {
+		if(datosValoracion == null || datosValoracion.getIdLibro() == null || datosValoracion.getIdUsuario() == null
+				|| datosValoracion.getNota() == null) {
+			throw new ReadandshareException("Existen campos obligatorios de Valoración que no se han cubierto");
+		}
+	}
 	
 	private void validateAutor(AutorDTO autorDTO) throws ReadandshareException {
 		if(autorDTO == null || autorDTO.getNombre() == null) {
@@ -91,6 +106,47 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 	public List<ValoracionLibroDTO> getListaValoraciones() throws ReadandshareException {
 		List<ValoracionLibroDTO> valoraciones = this.valoracionRepository.consultarLibrosValoraciones();
 		return valoraciones;
+	}
+	
+	@Override
+	public LibroDTO consultarDetalleLibro(Integer id) {
+		LibroDTO libroDTO = new LibroDTO();
+		Libro libro = this.libroRepository.consultarDetalleLibro(id);
+		if(libro != null) {
+			libroDTO.setTitulo(libro.getTitulo());
+			libroDTO.setNombreAutor(libro.getAutor().getNombre());
+			libroDTO.setEditorial(libro.getEditorial());
+			libroDTO.setAno(libro.getAno());
+			libroDTO.setNumPaginas(libro.getNpag());
+			libroDTO.setSinopsis(libro.getSinopsis());
+			libroDTO.setImagenStr(Base64.getEncoder().encodeToString(libro.getImagen()));
+		}
+		return libroDTO;
+	}
+
+	@Override
+	public DatosValoracionLibroDTO getValoracionLibro(Integer idLibro, Integer idUsuario) {
+		DatosValoracionLibroDTO valoracionLibro = null;
+		Valoracion valoracion = this.valoracionRepository.consultarValoracionLibroUsuario(idLibro, idUsuario);
+		if(valoracion != null) {
+			valoracionLibro = new DatosValoracionLibroDTO();
+			valoracionLibro.setNota(valoracion.getNota());
+			valoracionLibro.setCritica(valoracion.getCritica());
+		}
+		return valoracionLibro;
+	}
+
+	@Override
+	public void altaValoracion(DatosValoracionLibroDTO datosValoracion) throws ReadandshareException {
+		this.validateValoracion(datosValoracion);
+		Libro libro = this.libroRepository.consultarDetalleLibro(datosValoracion.getIdLibro());
+		Usuario usuario = this.usuarioRepository.consultarUsuario(datosValoracion.getIdUsuario());
+		Valoracion valoracion = new Valoracion();
+		valoracion.setUsuario(usuario);
+		valoracion.setLibro(libro);
+		valoracion.setNota(datosValoracion.getNota());
+		valoracion.setCritica(datosValoracion.getCritica());
+		this.valoracionRepository.save(valoracion);
 	}
 
 }

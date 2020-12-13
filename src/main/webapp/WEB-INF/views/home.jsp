@@ -6,17 +6,14 @@
 			<div class="container">
 				<div class="heading">
 					<h2>Libros más valorados</h2>
-					<%-- <select name="libro" id="libro">
-						<c:forEach items="${model.libros}" var="libro">
-							<option value="${libro.id}">${libro.titulo}</option>
-						</c:forEach>
-					</select> --%>
+
 				</div>
 				<div class="row">
 					<c:forEach items="${model.valoraciones}" var="valoracion">
 						<div class="col-4 col-md-2">
 							<div class="card border-0 transform-on-hover">
-								<a class="lightbox" href="libro${valoracion.libro.id}.html"> <img
+								<a class="lightbox" href="libro${valoracion.libro.id}.html"> 
+								<img
 									src="data:image/jpg;base64,${valoracion.libro.imagenStr}" alt="${valoracion.libro.titulo}" class="card-img-top">
 								</a>
 								<div class="card-body">

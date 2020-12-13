@@ -2,6 +2,7 @@ package com.project.readandshare.dto;
 
 public class UsuarioDTO {
 	
+	private Integer id;
 	private String login;
 	private String password;
 	private String mail;
@@ -12,6 +13,14 @@ public class UsuarioDTO {
 	
 	public UsuarioDTO() {
 		super();
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getLogin() {

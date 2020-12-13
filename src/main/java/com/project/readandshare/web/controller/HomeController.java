@@ -23,7 +23,7 @@ public class HomeController {
 
     private Boolean tieneSesionIniciada(HttpServletRequest request) {
     	Boolean sesionIniciada = Boolean.FALSE;
-    	if(request.getSession().getAttribute("login") != null) {
+    	if(request.getSession().getAttribute("usuarioLogueado") != null) {
     		sesionIniciada = Boolean.TRUE;
     	}
     	return sesionIniciada;
