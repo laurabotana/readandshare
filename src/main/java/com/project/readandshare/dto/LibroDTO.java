@@ -21,6 +21,8 @@ public class LibroDTO implements Serializable {
 	private String imagenStr;
 	private Integer autor;
 	private String nombreAutor;
+	private Integer genero;
+	private String nombreGenero;
 	
 	public LibroDTO() {
 		super();
@@ -112,6 +114,22 @@ public class LibroDTO implements Serializable {
 
 	public void setImagenStr(String imagenStr) {
 		this.imagenStr = imagenStr;
+	}
+
+	public String getNombreGenero() {
+		return nombreGenero;
+	}
+
+	public void setNombreGenero(String nombreGenero) {
+		this.nombreGenero = nombreGenero;
+	}
+
+	public Integer getGenero() {
+		return genero;
+	}
+
+	public void setGenero(Integer genero) {
+		this.genero = genero;
 	}
 
 }

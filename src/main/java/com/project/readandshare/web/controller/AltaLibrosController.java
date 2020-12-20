@@ -18,6 +18,7 @@ import com.project.readandshare.business.exception.ReadandshareException;
 import com.project.readandshare.business.service.AltaLibrosService;
 import com.project.readandshare.dto.AutorDTO;
 import com.project.readandshare.dto.DatosValoracionLibroDTO;
+import com.project.readandshare.dto.GeneroDTO;
 import com.project.readandshare.dto.LibroDTO;
 import com.project.readandshare.dto.UsuarioDTO;
 
@@ -59,8 +60,10 @@ public class AltaLibrosController {
 			return new ModelAndView(new RedirectView("login.html"));
 		}
 		List<AutorDTO> autores = this.altaLibrosService.getListaAutores();
+		List<GeneroDTO> generos = this.altaLibrosService.getListaGeneros();
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		myModel.put("autores", autores);
+		myModel.put("generos", generos);
 		myModel.put("sesionIniciada", sesionIniciada);
 		return new ModelAndView("formLibro", "model", myModel);
 	}

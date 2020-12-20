@@ -41,6 +41,16 @@
 						</c:forEach>
 					</select>
 				</div>
+				
+				<div class="col-12">
+					<label for="genero">Género:<span class="red">*</span></label>
+					<select name="genero" id="genero">
+						<c:forEach items="${model.generos}" var="genero">
+							<option value="${genero.id}">${genero.genero}</option>
+						</c:forEach>
+					</select>
+				</div>
+				
 				<div class="col-12">
 					<label for="imagen">Imagen:<span class="red">*</span></label> 
 					<input type="file" class="form-control" id="imagen" name="imagen">

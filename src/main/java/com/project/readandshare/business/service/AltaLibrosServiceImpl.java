@@ -10,15 +10,20 @@ import org.springframework.util.CollectionUtils;
 
 import com.project.readandshare.business.exception.ReadandshareException;
 import com.project.readandshare.business.model.Autor;
+import com.project.readandshare.business.model.Genero;
 import com.project.readandshare.business.model.Libro;
+import com.project.readandshare.business.model.LibroGenero;
 import com.project.readandshare.business.model.Usuario;
 import com.project.readandshare.business.model.Valoracion;
 import com.project.readandshare.business.repository.AutorRepository;
+import com.project.readandshare.business.repository.GeneroRepository;
+import com.project.readandshare.business.repository.LibroGeneroRepository;
 import com.project.readandshare.business.repository.LibroRepository;
 import com.project.readandshare.business.repository.UsuarioRepository;
 import com.project.readandshare.business.repository.ValoracionRepository;
 import com.project.readandshare.dto.AutorDTO;
 import com.project.readandshare.dto.DatosValoracionLibroDTO;
+import com.project.readandshare.dto.GeneroDTO;
 import com.project.readandshare.dto.LibroDTO;
 import com.project.readandshare.dto.ValoracionLibroDTO;
 
@@ -38,6 +43,12 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private GeneroRepository generoRepository;
+	
+	@Autowired
+	private LibroGeneroRepository libroGeneroRepository;
 	
 	private void validateValoracion(DatosValoracionLibroDTO datosValoracion) throws ReadandshareException {
 		if(datosValoracion == null || datosValoracion.getIdLibro() == null || datosValoracion.getIdUsuario() == null
@@ -72,6 +83,7 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 	public void createLibro(LibroDTO libroDTO) throws ReadandshareException {
 		this.validateLibro(libroDTO);
 		Autor autor = this.autorRepository.consultarAutor(libroDTO.getAutor());
+		Genero genero = this.generoRepository.consultarGenero(libroDTO.getGenero());
 		Libro libro = new Libro();
 		libro.setAno(libroDTO.getAno());
 		libro.setEditorial(libroDTO.getEditorial());
@@ -80,7 +92,11 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 		libro.setSinopsis(libroDTO.getSinopsis());
 		libro.setTitulo(libroDTO.getTitulo());
 		libro.setAutor(autor);
-		this.libroRepository.save(libro);
+		Libro libroGuardado = this.libroRepository.save(libro);
+		LibroGenero libroGenero = new LibroGenero();
+		libroGenero.setId_libro(libroGuardado);
+		libroGenero.setId_genero(genero);
+		this.libroGeneroRepository.save(libroGenero);
 	}
 
 	@Override
@@ -112,12 +128,14 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 	public LibroDTO consultarDetalleLibro(Integer id) {
 		LibroDTO libroDTO = new LibroDTO();
 		Libro libro = this.libroRepository.consultarDetalleLibro(id);
+		LibroGenero libroGenero = this.libroGeneroRepository.consultarLibroGenero(id);
 		if(libro != null) {
 			libroDTO.setTitulo(libro.getTitulo());
 			libroDTO.setNombreAutor(libro.getAutor().getNombre());
 			libroDTO.setEditorial(libro.getEditorial());
 			libroDTO.setAno(libro.getAno());
 			libroDTO.setNumPaginas(libro.getNpag());
+			libroDTO.setNombreGenero(libroGenero.getId_genero().getGenero());
 			libroDTO.setSinopsis(libro.getSinopsis());
 			libroDTO.setImagenStr(Base64.getEncoder().encodeToString(libro.getImagen()));
 		}
@@ -148,5 +166,26 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 		valoracion.setCritica(datosValoracion.getCritica());
 		this.valoracionRepository.save(valoracion);
 	}
+
+	@Override
+	public List<GeneroDTO> getListaGeneros() throws ReadandshareException {
+		List<GeneroDTO> generosDTO = new ArrayList<GeneroDTO>();
+		
+		List<Genero> generos = this.generoRepository.consultarGeneros();
+		
+		if(!CollectionUtils.isEmpty(generos)) {
+			for(Genero genero: generos) {
+				GeneroDTO generoDTO = new GeneroDTO();
+				generoDTO.setId(genero.getId());
+				generoDTO.setGenero(genero.getGenero());
+				generosDTO.add(generoDTO);
+			}
+		}
+		return generosDTO;
+	}
+	
+	
+	
+	
 
 }

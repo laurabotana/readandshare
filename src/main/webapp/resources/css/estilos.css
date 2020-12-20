@@ -48,6 +48,20 @@
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
 }
 
+input[type=radio]{ display:none;}
+
+input[type=radio]:checked ~ label{color:orange;}
+
+.clasificacion{
+      direction: rtl;/* right to left */
+      unicode-bidi: bidi-override;/* bidi de bidireccional */
+}
+
+.clasificacion label:hover,	label:hover ~ label {
+  			color: orange;
+	}
+
+
 @media (min-width: 576px) {
 
 	.gallery-block .transform-on-hover:hover {

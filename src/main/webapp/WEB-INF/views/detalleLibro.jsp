@@ -23,6 +23,9 @@
 						Número de páginas:
 						<c:out value="${model.libro.numPaginas}" />
 					</p>
+					<p class="small text-muted">
+						<c:out value="${model.libro.nombreGenero}" />
+					</p>
 				</div>
 				<div class="col img-fluid" style="max-width: 200px">
 					<img src="data:image/jpg;base64,${model.libro.imagenStr}"
@@ -58,10 +61,29 @@
 										<input type="text" class="form-control" id="idLibro"
 											name="idLibro" value="${model.idLibro}" required>
 									</div>
-									<div class="col-12">
+									<!-- <div class="col-12">
 										<label for="nota">Nota [0-10]:<span class="red">*</span></label>
 										<input type="number" class="form-control" id="nota"
-											name="nota" required min="0" max="10">
+										name="nota" required min="0" max="10">
+
+									
+
+									</div> -->
+
+									<div>
+										<p class="clasificacion">
+											<input id="radio10" type="radio" name="nota" value="10"><label for="radio10">&#9733;</label>
+											<input id="radio9" type="radio" name="nota" value="9"><label for="radio9">&#9733;</label>
+											<input id="radio8" type="radio" name="nota" value="8"><label for="radio8">&#9733;</label>
+											<input id="radio7" type="radio" name="nota" value="7"><label for="radio7">&#9733;</label>
+											<input id="radio6" type="radio" name="nota" value="6"><label for="radio6">&#9733;</label>
+											<input id="radio5" type="radio" name="nota" value="5"><label for="radio5">&#9733;</label>
+											<input id="radio4" type="radio" name="nota" value="4"><label for="radio4">&#9733;</label>
+											<input id="radio3" type="radio" name="nota" value="3"><label for="radio3">&#9733;</label>
+											<input id="radio2" type="radio" name="nota" value="2"><label for="radio2">&#9733;</label>
+											<input id="radio1" type="radio" name="nota" value="1"><label for="radio1">&#9733;</label>
+										</p>
+										
 									</div>
 									<div>
 										<label for="critica">Crítica:<span class="red">*</span></label>
