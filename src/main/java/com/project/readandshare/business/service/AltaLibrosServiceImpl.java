@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.project.readandshare.business.exception.ReadandshareException;
 import com.project.readandshare.business.model.Autor;
@@ -164,6 +165,9 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 		valoracion.setUsuario(usuario);
 		valoracion.setLibro(libro);
 		valoracion.setNota(datosValoracion.getNota());
+		if(!StringUtils.isEmpty(datosValoracion.getCritica())) {
+			valoracion.setCritica(datosValoracion.getCritica());
+		}
 		valoracion.setCritica(datosValoracion.getCritica());
 		this.valoracionRepository.save(valoracion);
 	}

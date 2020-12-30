@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -88,5 +89,18 @@ public class UsuarioController {
 			model = new ModelAndView(new RedirectView("home.html"));
 		}
 		return model;
+	}
+	
+	@RequestMapping(value="/usuario.html")
+	public ModelAndView usuario(HttpServletRequest request, @RequestParam("alias") String alias) throws ReadandshareException {
+		Boolean sesionIniciada = this.tieneSesionIniciada(request);
+		if(Boolean.FALSE.equals(sesionIniciada)) {
+    		return new ModelAndView(new RedirectView("login.html"));
+    	}
+		UsuarioDTO usuarioDTO = usuarioService.consultarDatosUsuario(alias);
+        Map<String, Object> usuario = new HashMap<String, Object>();
+        usuario.put("sesionIniciada", sesionIniciada);
+        usuario.put("usuario", usuarioDTO);
+        return new ModelAndView("usuario", "model", usuario);
 	}
 }

@@ -73,5 +73,18 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 		return usuarioDTO;
 	}
+	
+	@Override
+	public UsuarioDTO consultarUsuario(String login) {
+		UsuarioDTO usuarioDTO = new UsuarioDTO();
+		Usuario usuario = this.usuarioRepository.consultarUsuario(login);
+		if(usuario != null) {
+			usuarioDTO.setId(usuario.getId());
+			usuarioDTO.setLogin(usuario.getLogin());
+			usuarioDTO.setLocalidad(usuario.getLocalidad());
+			usuarioDTO.setProvincia(usuario.getProvincia());
+		}
+		return usuarioDTO;
+	}
 
 }

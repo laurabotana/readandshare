@@ -12,7 +12,7 @@
 					<c:forEach items="${model.valoraciones}" var="valoracion">
 						<div class="col-4 col-md-2">
 							<div class="card border-0 transform-on-hover">
-								<a class="lightbox" href="libro${valoracion.libro.id}.html"> 
+								<a class="lightbox" href="libro.html?id=${valoracion.libro.id}"> 
 								<img
 									src="data:image/jpg;base64,${valoracion.libro.imagenStr}" alt="${valoracion.libro.titulo}" class="card-img-top">
 								</a>

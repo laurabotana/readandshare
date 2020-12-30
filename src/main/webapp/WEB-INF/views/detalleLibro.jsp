@@ -105,7 +105,7 @@
 			
 				<c:forEach items="${model.valoraciones}" var="valoracion" >
 					<div class="border border-secondary rounded p-2">
-						<p ><span class="font-weight-bold">${valoracion.nota}</span> - <span class="text-muted">${valoracion.usuario}</span></p>
+						<p ><span class="font-weight-bold">${valoracion.nota}</span> - <a class="text-muted" href="usuario.html?alias=${valoracion.usuario}">${valoracion.usuario}</a></p>
 						<p>${valoracion.critica}</p>
 					</div>
 					<br/>

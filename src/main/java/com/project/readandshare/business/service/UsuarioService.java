@@ -11,4 +11,6 @@ public interface UsuarioService {
 	
 	UsuarioDTO consultarDatosUsuario(String login);
 	
+	UsuarioDTO consultarUsuario(String login);
+	
 }
