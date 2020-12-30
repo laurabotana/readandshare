@@ -19,5 +19,8 @@ public interface ValoracionRepository extends CrudRepository<Valoracion, Integer
 
 	@Query("SELECT v FROM Valoracion v INNER JOIN v.libro l INNER JOIN v.usuario u WHERE l.id = :idLibro AND u.id = :idUsuario")
 	Valoracion consultarValoracionLibroUsuario(@Param("idLibro") Integer idLibro, @Param("idUsuario") Integer idUsuario);
+	
+	@Query("SELECT v FROM Valoracion v where v.libro.id = :idLibro and v.critica IS NOT NULL")
+	List<Valoracion> consultarValoraciones(@Param("idLibro") Integer idLibro);
 
 }

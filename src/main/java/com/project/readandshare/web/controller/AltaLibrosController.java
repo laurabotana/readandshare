@@ -21,6 +21,7 @@ import com.project.readandshare.dto.DatosValoracionLibroDTO;
 import com.project.readandshare.dto.GeneroDTO;
 import com.project.readandshare.dto.LibroDTO;
 import com.project.readandshare.dto.UsuarioDTO;
+import com.project.readandshare.dto.ValoracionDTO;
 
 @Controller
 public class AltaLibrosController {
@@ -82,11 +83,13 @@ public class AltaLibrosController {
 		myModel.put("libro", libroDTO);
 		myModel.put("libroValorado", Boolean.FALSE);
 		myModel.put("sesionIniciada", sesionIniciada);
+		List<ValoracionDTO> valoraciones = this.altaLibrosService.getListaValoraciones(idLibro);
+		myModel.put("valoraciones",valoraciones);
 		if(Boolean.TRUE.equals(sesionIniciada)) {
 			UsuarioDTO usuarioDTO = (UsuarioDTO) request.getSession().getAttribute("usuarioLogueado");
 			DatosValoracionLibroDTO valoracionLibro = this.altaLibrosService.getValoracionLibro(idLibro, usuarioDTO.getId());
-			myModel.put("libroValorado", valoracionLibro != null ? Boolean.TRUE : Boolean.FALSE);
-			myModel.put("valoracionLibro", valoracionLibro);
+						myModel.put("libroValoradoUsuarioActual", valoracionLibro != null ? Boolean.TRUE : Boolean.FALSE);
+			myModel.put("valoracionLibroUsuarioActual", valoracionLibro);
 			myModel.put("idLibro", idLibro);
 		}
 		return new ModelAndView("detalleLibro", "model", myModel);

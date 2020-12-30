@@ -25,6 +25,7 @@ import com.project.readandshare.dto.AutorDTO;
 import com.project.readandshare.dto.DatosValoracionLibroDTO;
 import com.project.readandshare.dto.GeneroDTO;
 import com.project.readandshare.dto.LibroDTO;
+import com.project.readandshare.dto.ValoracionDTO;
 import com.project.readandshare.dto.ValoracionLibroDTO;
 
 @Service(AltaLibrosServiceImpl.ID)
@@ -184,7 +185,24 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 		return generosDTO;
 	}
 	
+	@Override
+	public List<ValoracionDTO> getListaValoraciones(Integer idLibro) throws ReadandshareException{
+		List<ValoracionDTO> valoracionesDTO = new ArrayList<ValoracionDTO>();
+		List<Valoracion> valoracionesLibro = this.valoracionRepository.consultarValoraciones(idLibro);
+		
+		if(!CollectionUtils.isEmpty(valoracionesLibro)) {
+			for(Valoracion valoracion: valoracionesLibro) {
+				ValoracionDTO valoracionDTO = new ValoracionDTO();
+				valoracionDTO.setUsuario(valoracion.getUsuario().getLogin());
+				valoracionDTO.setNota(valoracion.getNota());
+				valoracionDTO.setCritica(valoracion.getCritica());
+			
+				valoracionesDTO.add(valoracionDTO);
+			}
+		}
+		return valoracionesDTO;
 	
+	}
 	
 	
 

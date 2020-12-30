@@ -7,6 +7,7 @@ import com.project.readandshare.dto.AutorDTO;
 import com.project.readandshare.dto.DatosValoracionLibroDTO;
 import com.project.readandshare.dto.GeneroDTO;
 import com.project.readandshare.dto.LibroDTO;
+import com.project.readandshare.dto.ValoracionDTO;
 import com.project.readandshare.dto.ValoracionLibroDTO;
 
 public interface AltaLibrosService {
@@ -26,5 +27,7 @@ public interface AltaLibrosService {
 	void altaValoracion(DatosValoracionLibroDTO datosValoracion) throws ReadandshareException;
 
 	List<GeneroDTO> getListaGeneros() throws ReadandshareException;
+	
+	List<ValoracionDTO> getListaValoraciones(Integer idLibro) throws ReadandshareException;
 	
 }

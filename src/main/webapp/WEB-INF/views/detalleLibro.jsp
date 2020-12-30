@@ -36,20 +36,20 @@
 				<c:out value="${model.libro.sinopsis}" />
 			</div>
 			<c:choose>
-				<c:when test="${model.libroValorado}">
+				<c:when test="${model.libroValoradoUsuarioActual}">
 					<h5>VALORACIÓN</h5>
 					<p>
 						Nota:
-						<c:out value="${model.valoracionLibro.nota}" />
+						<c:out value="${model.valoracionLibroUsuarioActual.nota}" />
 					</p>
 					<c:choose>
-						<c:when test="${model.valoracionLibro.critica != null}">
+						<c:when test="${model.valoracionLibroUsuarioActual.critica != null}">
 							<p>
 								Crítica:
-								<c:out value="${model.valoracionLibro.critica}" />
+								<c:out value="${model.valoracionLibroUsuarioActual.critica}" />
 							</p>
 						</c:when>
-					</c:choose>
+					</c:choose>					
 				</c:when>
 				<c:otherwise>
 					<c:choose>
@@ -101,6 +101,17 @@
 					</c:choose>
 				</c:otherwise>
 			</c:choose>
+			<h5>VALORACIONES DE USUARIOS</h5>
+			
+				<c:forEach items="${model.valoraciones}" var="valoracion" >
+					<div class="border border-secondary rounded p-2">
+						<p ><span class="font-weight-bold">${valoracion.nota}</span> - <span class="text-muted">${valoracion.usuario}</span></p>
+						<p>${valoracion.critica}</p>
+					</div>
+					<br/>
+				</c:forEach>
+				
+				
 		</div>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
