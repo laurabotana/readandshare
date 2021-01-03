@@ -9,7 +9,7 @@
 						<c:out value="${model.libro.titulo}" />
 					</h4>
 					<p>
-						<c:out value="${model.libro.nombreAutor}" />
+						<a href="autor.html?id=${model.libro.autor}"> <c:out value="${model.libro.nombreAutor}" /></a>
 					</p>
 					<p class="small">
 						Editorial:

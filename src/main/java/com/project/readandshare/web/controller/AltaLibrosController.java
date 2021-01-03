@@ -23,6 +23,7 @@ import com.project.readandshare.dto.GeneroDTO;
 import com.project.readandshare.dto.LibroDTO;
 import com.project.readandshare.dto.UsuarioDTO;
 import com.project.readandshare.dto.ValoracionDTO;
+import com.project.readandshare.dto.ValoracionLibroDTO;
 
 @Controller
 public class AltaLibrosController {
@@ -109,6 +110,22 @@ public class AltaLibrosController {
 			mav = new ModelAndView(new RedirectView("login.html")); 
 		}
 		return mav;
+	}
+	
+	@RequestMapping(value="/autor.html")
+	public ModelAndView detalleAutor(HttpServletRequest request, @RequestParam("id") Integer idAutor) throws ReadandshareException {
+		Boolean sesionIniciada = this.tieneSesionIniciada(request);
+		List<LibroDTO> librosAutor= this.altaLibrosService.getLibrosAutor(idAutor);
+		Map<String, Object> myModel = new HashMap<String, Object>();
+		AutorDTO autorDTO = this.altaLibrosService.consultarAutor(idAutor);
+		myModel.put("autor", autorDTO);
+		myModel.put("librosAutor", librosAutor);
+		myModel.put("sesionIniciada", sesionIniciada);
+		if(Boolean.TRUE.equals(sesionIniciada)) {
+			UsuarioDTO usuarioDTO = (UsuarioDTO) request.getSession().getAttribute("usuarioLogueado");
+			myModel.put("idAutor", idAutor);
+		}
+		return new ModelAndView("detalleAutor", "model", myModel);
 	}
 
 }

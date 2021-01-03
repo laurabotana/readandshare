@@ -127,12 +127,35 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 	}
 	
 	@Override
+	public List<LibroDTO> getLibrosAutor(Integer id) throws ReadandshareException {
+		List<LibroDTO> librosDTO = new ArrayList<LibroDTO>();
+		List<Libro> librosAutor = this.libroRepository.consultarLibrosAutor(id);
+		if(!CollectionUtils.isEmpty(librosAutor)) {
+			for(Libro libro: librosAutor) {
+				LibroDTO libroDTO = new LibroDTO();
+				libroDTO.setId(libro.getId());
+				libroDTO.setTitulo(libro.getTitulo());
+				libroDTO.setAutor(libro.getAutor().getId());
+				libroDTO.setNombreAutor(libro.getAutor().getNombre());
+				libroDTO.setEditorial(libro.getEditorial());
+				libroDTO.setAno(libro.getAno());
+				libroDTO.setNumPaginas(libro.getNpag());
+				libroDTO.setSinopsis(libro.getSinopsis());
+				libroDTO.setImagenStr(Base64.getEncoder().encodeToString(libro.getImagen()));
+				librosDTO.add(libroDTO);
+			}
+		}
+		return librosDTO;
+	}
+	
+	@Override
 	public LibroDTO consultarDetalleLibro(Integer id) {
 		LibroDTO libroDTO = new LibroDTO();
 		Libro libro = this.libroRepository.consultarDetalleLibro(id);
 		LibroGenero libroGenero = this.libroGeneroRepository.consultarLibroGenero(id);
 		if(libro != null) {
 			libroDTO.setTitulo(libro.getTitulo());
+			libroDTO.setAutor(libro.getAutor().getId());
 			libroDTO.setNombreAutor(libro.getAutor().getNombre());
 			libroDTO.setEditorial(libro.getEditorial());
 			libroDTO.setAno(libro.getAno());
@@ -206,6 +229,17 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 		}
 		return valoracionesDTO;
 	
+	}
+	
+	@Override
+	public AutorDTO consultarAutor(Integer id) {
+		AutorDTO autorDTO = new AutorDTO();
+		Autor autor = this.autorRepository.consultarAutor(id);
+		if(autor != null) {
+			autorDTO.setNombre(autor.getNombre());
+	
+		}
+		return autorDTO;
 	}
 	
 	

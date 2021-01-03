@@ -29,5 +29,9 @@ public interface AltaLibrosService {
 	List<GeneroDTO> getListaGeneros() throws ReadandshareException;
 	
 	List<ValoracionDTO> getListaValoraciones(Integer idLibro) throws ReadandshareException;
+
+	AutorDTO consultarAutor(Integer id);
+	
+	List<LibroDTO> getLibrosAutor(Integer id) throws ReadandshareException;
 	
 }
