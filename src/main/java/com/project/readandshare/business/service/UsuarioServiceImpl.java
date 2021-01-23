@@ -1,12 +1,23 @@
 package com.project.readandshare.business.service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.TimeZone;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.project.readandshare.business.component.PasswordCipherComponent;
 import com.project.readandshare.business.exception.ReadandshareException;
+import com.project.readandshare.business.model.Mensaje;
 import com.project.readandshare.business.model.Usuario;
+import com.project.readandshare.business.repository.MensajeRepository;
 import com.project.readandshare.business.repository.UsuarioRepository;
+import com.project.readandshare.dto.MensajeDTO;
 import com.project.readandshare.dto.UsuarioDTO;
 
 @Service(UsuarioServiceImpl.ID)
@@ -19,6 +30,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private MensajeRepository mensajeRepository;
 	
 	private void validate(UsuarioDTO usuarioDTO) throws ReadandshareException {
 		if(usuarioDTO == null || usuarioDTO.getApellidos() == null || usuarioDTO.getLocalidad() == null
@@ -85,6 +99,57 @@ public class UsuarioServiceImpl implements UsuarioService {
 			usuarioDTO.setProvincia(usuario.getProvincia());
 		}
 		return usuarioDTO;
+	}
+	
+	@Override
+	public void createMensaje(MensajeDTO mensajeDTO) throws ReadandshareException {
+		Usuario emisor = this.usuarioRepository.consultarUsuario(mensajeDTO.getEmisor());
+		Usuario receptor = this.usuarioRepository.consultarUsuario(mensajeDTO.getReceptor());
+		Mensaje mensaje = new Mensaje();
+		mensaje.setMensaje(mensajeDTO.getMensaje());
+		mensaje.setEmisor(emisor);
+		mensaje.setReceptor(receptor);
+		mensaje.setFecha(Calendar.getInstance());
+		this.mensajeRepository.save(mensaje);
+	}
+	
+	@Override
+	public List<MensajeDTO> getMisMensajes(Integer id) {
+		
+		List<MensajeDTO> mensajesDTO = new ArrayList<MensajeDTO>();
+		
+		List<Mensaje> mensajes = this.mensajeRepository.getMisMensajes(id);
+		
+		if(!CollectionUtils.isEmpty(mensajes)) {
+			for(Mensaje mensaje: mensajes) {
+				MensajeDTO mensajeDTO = new MensajeDTO();
+				mensajeDTO.setId(mensaje.getId());
+				mensajeDTO.setEmisor(mensaje.getEmisor().getId());
+				mensajeDTO.setAliasEmisor(mensaje.getEmisor().getLogin());
+				mensajeDTO.setMensaje(mensaje.getMensaje());
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+				simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+				mensajeDTO.setFecha(simpleDateFormat.format(mensaje.getFecha().getTime()));
+				mensajesDTO.add(mensajeDTO);
+			}
+		}
+		
+		return mensajesDTO;
+	}
+
+	@Override
+	public String getUsuariosCercanos() {
+		StringBuilder usuariosCercanos = new StringBuilder();
+		List<Usuario> listaUsuarios = this.usuarioRepository.consultarUsuarios();
+		if(!CollectionUtils.isEmpty(listaUsuarios)) {
+			for(Usuario u: listaUsuarios) {
+				if(!StringUtils.isEmpty(usuariosCercanos.toString())) {
+					usuariosCercanos.append(";");
+				}
+				usuariosCercanos.append(u.getLogin()).append(",").append(u.getLocalidad());
+			}
+		}
+		return usuariosCercanos.toString();
 	}
 
 }

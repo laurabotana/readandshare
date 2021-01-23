@@ -1,6 +1,7 @@
 package com.project.readandshare.web.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.project.readandshare.business.exception.ReadandshareException;
 import com.project.readandshare.business.service.UsuarioService;
+import com.project.readandshare.dto.MensajeDTO;
 import com.project.readandshare.dto.UsuarioDTO;
 
 @Controller
@@ -38,9 +40,12 @@ public class UsuarioController {
     		return new ModelAndView(new RedirectView("login.html"));
     	}
     	UsuarioDTO usuarioDTO = (UsuarioDTO) request.getSession().getAttribute("usuarioLogueado");
-        Map<String, Object> miPerfil = new HashMap<String, Object>();
+    	List<MensajeDTO> mensajes = this.usuarioService.getMisMensajes(usuarioDTO.getId());
+    	
+    	 Map<String, Object> miPerfil = new HashMap<String, Object>();
         miPerfil.put("sesionIniciada", sesionIniciada);
         miPerfil.put("usuario", usuarioDTO);
+        miPerfil.put("mensajes", mensajes);
         return new ModelAndView("miPerfil", "model", miPerfil);
     }
     
@@ -101,6 +106,14 @@ public class UsuarioController {
         Map<String, Object> usuario = new HashMap<String, Object>();
         usuario.put("sesionIniciada", sesionIniciada);
         usuario.put("usuario", usuarioDTO);
+        usuario.put("usuarioOrigen", request.getSession().getAttribute("usuarioLogueado"));
         return new ModelAndView("usuario", "model", usuario);
 	}
+	
+	@RequestMapping(value="/mandarMensaje.html", method = RequestMethod.POST)
+	public ModelAndView mandarMensaje(MensajeDTO mensajeDTO) throws ReadandshareException {
+		this.usuarioService.createMensaje(mensajeDTO);
+		return new ModelAndView(new RedirectView("home.html"));
+	}
+	
 }

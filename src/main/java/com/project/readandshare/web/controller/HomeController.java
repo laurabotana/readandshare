@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.project.readandshare.business.exception.ReadandshareException;
 import com.project.readandshare.business.service.AltaLibrosService;
+import com.project.readandshare.business.service.UsuarioService;
 import com.project.readandshare.dto.ValoracionLibroDTO;
 
 @Controller
@@ -20,6 +21,9 @@ public class HomeController {
 	
     @Autowired
     private AltaLibrosService altaLibrosService;
+    
+    @Autowired
+    private UsuarioService usuarioService;
 
     private Boolean tieneSesionIniciada(HttpServletRequest request) {
     	Boolean sesionIniciada = Boolean.FALSE;
@@ -42,6 +46,7 @@ public class HomeController {
 	public ModelAndView cercanos(HttpServletRequest request) {
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		myModel.put("sesionIniciada", this.tieneSesionIniciada(request));
+		myModel.put("usuariosCercanos", this.usuarioService.getUsuariosCercanos());
 		return new ModelAndView("cercanos", "model", myModel);
 	}
 }

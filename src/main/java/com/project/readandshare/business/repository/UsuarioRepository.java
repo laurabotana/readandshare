@@ -1,5 +1,7 @@
 package com.project.readandshare.business.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +16,10 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
 	Usuario consultarUsuario(@Param("login") String login);
 
 	@Query("SELECT u FROM Usuario u WHERE u.id = :idUsuario")
-	Usuario consultarUsuario(@Param("idUsuario") Integer idUsuario);	
+	Usuario consultarUsuario(@Param("idUsuario") Integer idUsuario);
+	
+	@Query("SELECT u FROM Usuario u")
+	List<Usuario> consultarUsuarios();
 	
 
 }

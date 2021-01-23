@@ -19,7 +19,15 @@
 				Localidad:
 				<c:out value="${model.usuario.localidad}" />
 			</p>
-
+			<form class=p-2 method="POST" action="mandarMensaje.html" >
+				<p>Escribir un mensaje a <c:out value="${model.usuario.login}" /></p>
+				<textarea  rows="4" cols="50" maxlength="500" name="mensaje"></textarea><br/>
+				<input type="text" class="d-none" name="emisor" value="${model.usuarioOrigen.id}">
+				<input type="text" class="d-none" name="receptor" value="${model.usuario.id}">
+				<button class="btn btn-primary" type="submit" name="submit">Guardar</button>
+				<button class="btn btn-success" type="reset" name="reset">Limpiar</button>
+			</form>
+			
 		</div>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

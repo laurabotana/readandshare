@@ -1,6 +1,9 @@
 package com.project.readandshare.business.service;
 
+import java.util.List;
+
 import com.project.readandshare.business.exception.ReadandshareException;
+import com.project.readandshare.dto.MensajeDTO;
 import com.project.readandshare.dto.UsuarioDTO;
 
 public interface UsuarioService {
@@ -12,5 +15,11 @@ public interface UsuarioService {
 	UsuarioDTO consultarDatosUsuario(String login);
 	
 	UsuarioDTO consultarUsuario(String login);
+	
+	void createMensaje(MensajeDTO mensajeDTO) throws ReadandshareException;
+	
+	List<MensajeDTO> getMisMensajes(Integer id);
+	
+	String getUsuariosCercanos();
 	
 }
