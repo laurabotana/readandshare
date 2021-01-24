@@ -9,8 +9,9 @@ import java.util.TimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.readandshare.business.component.PasswordCipherComponent;
 import com.project.readandshare.business.exception.ReadandshareException;
 import com.project.readandshare.business.model.Mensaje;
@@ -18,6 +19,7 @@ import com.project.readandshare.business.model.Usuario;
 import com.project.readandshare.business.repository.MensajeRepository;
 import com.project.readandshare.business.repository.UsuarioRepository;
 import com.project.readandshare.dto.MensajeDTO;
+import com.project.readandshare.dto.UsuarioCercanoDTO;
 import com.project.readandshare.dto.UsuarioDTO;
 
 @Service(UsuarioServiceImpl.ID)
@@ -139,17 +141,24 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public String getUsuariosCercanos() {
-		StringBuilder usuariosCercanos = new StringBuilder();
+		String usuariosCercanosString = null;
 		List<Usuario> listaUsuarios = this.usuarioRepository.consultarUsuarios();
+		List<UsuarioCercanoDTO> listaUsuarioCercano = new ArrayList<UsuarioCercanoDTO>();
 		if(!CollectionUtils.isEmpty(listaUsuarios)) {
 			for(Usuario u: listaUsuarios) {
-				if(!StringUtils.isEmpty(usuariosCercanos.toString())) {
-					usuariosCercanos.append(";");
-				}
-				usuariosCercanos.append(u.getLogin()).append(",").append(u.getLocalidad());
+				UsuarioCercanoDTO usuarioCercanoDTO = new UsuarioCercanoDTO();
+				usuarioCercanoDTO.setAlias(u.getLogin());
+				usuarioCercanoDTO.setLocalidad(u.getLocalidad());
+				listaUsuarioCercano.add(usuarioCercanoDTO);
+			}
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				usuariosCercanosString = mapper.writeValueAsString(listaUsuarioCercano);
+			} catch (JsonProcessingException e) {
+				usuariosCercanosString = null;
 			}
 		}
-		return usuariosCercanos.toString();
+		return usuariosCercanosString;
 	}
 
 }

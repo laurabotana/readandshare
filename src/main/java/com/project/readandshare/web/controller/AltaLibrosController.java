@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +22,6 @@ import com.project.readandshare.dto.GeneroDTO;
 import com.project.readandshare.dto.LibroDTO;
 import com.project.readandshare.dto.UsuarioDTO;
 import com.project.readandshare.dto.ValoracionDTO;
-import com.project.readandshare.dto.ValoracionLibroDTO;
 
 @Controller
 public class AltaLibrosController {
@@ -122,7 +120,7 @@ public class AltaLibrosController {
 		myModel.put("librosAutor", librosAutor);
 		myModel.put("sesionIniciada", sesionIniciada);
 		if(Boolean.TRUE.equals(sesionIniciada)) {
-			UsuarioDTO usuarioDTO = (UsuarioDTO) request.getSession().getAttribute("usuarioLogueado");
+//			UsuarioDTO usuarioDTO = (UsuarioDTO) request.getSession().getAttribute("usuarioLogueado");
 			myModel.put("idAutor", idAutor);
 		}
 		return new ModelAndView("detalleAutor", "model", myModel);

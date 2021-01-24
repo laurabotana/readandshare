@@ -1,10 +1,5 @@
 package com.project.readandshare.dto;
 
-import java.util.Calendar;
-import java.util.List;
-
-import com.project.readandshare.business.model.Usuario;
-
 public class MensajeDTO  {
 
 

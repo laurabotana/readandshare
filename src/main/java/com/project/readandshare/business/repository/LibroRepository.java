@@ -8,16 +8,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.project.readandshare.business.model.Libro;
-import com.project.readandshare.dto.ValoracionLibroDTO;
 
 
 @Repository
 public interface LibroRepository extends CrudRepository<Libro, Integer> {
 	
-	@Query("SELECT d FROM Libro d WHERE d.id = :id")
-	Libro consultarDetalleLibro(@Param("id") Integer c);
+	@Query("SELECT l FROM Libro l WHERE l.id = :idLibro")
+	Libro consultarDetalleLibro(@Param("idLibro") Integer idLibro);
 
-	@Query("SELECT l FROM Libro l WHERE l.autor.id = :id")
-	List<Libro> consultarLibrosAutor(@Param("id") Integer c);
+	@Query("SELECT l FROM Libro l WHERE l.autor.id = :idAutor")
+	List<Libro> consultarLibrosAutor(@Param("idAutor") Integer idAutor);
 	
 }

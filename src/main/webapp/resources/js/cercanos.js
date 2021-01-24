@@ -1,4 +1,7 @@
+var markers = new Array();
+
 $( document ).ready(function() {
+//	markers = new Array();
     var map = L.map('map', {
 					center : [ 43.3197, -8.3626 ],
 					zoom : 11,
@@ -19,56 +22,52 @@ $( document ).ready(function() {
 
 	var usuariosCercanosString = $("#idListaUsuariosCercanos").text().trim();
 	
-	var listaUsuariosCercanos = usuariosCercanosString.split(";");
+	var listaUsuariosCercanos = JSON.parse(usuariosCercanosString);
 	
 	if(Array.isArray(listaUsuariosCercanos) && listaUsuariosCercanos.length > 0) {
 		for(var i = 0; i<listaUsuariosCercanos.length;i++) {
-			var usuarioLocalidad = JSON.parse(JSON.stringify(listaUsuariosCercanos[i].split(",")));
-			if(Array.isArray(usuarioLocalidad) && usuarioLocalidad.length == 2) {
-				var datos = {
-					usuario: unescape(encodeURIComponent(usuarioLocalidad[0])),
-					localidad: unescape(encodeURIComponent(usuarioLocalidad[1]))
-				};
-				$.ajax({
-					url: location.protocol + '//nominatim.openstreetmap.org/search?format=json&q='+datos.localidad,
-					async: false,
-					success: function (data) {
-						if(Array.isArray(data) && data.length > 0) {
-							L.marker(
-							[ data[0].lat, data[0].lon ], {
-								title : datos.usuario,
-								draggable : false,
-								opacity : 1,
-								icon : Icono
-							}).bindPopup('<a href="usuario.html?alias=' + datos.usuario + '">'+ datos.usuario +'</a>').addTo(map);
-						}   
-					}
-				});
-			}
-		}	
+			var datos = listaUsuariosCercanos[i];
+			marcarMapa(datos, map, Icono);
+		}
 	}
-
-//	var pepe = L.marker([ 43.30543518333978, -8.50927833575279 ], {
-//					title : "pepe",
-//					draggable : false,
-//					opacity : 1,
-//					icon : Icono
-//				}).bindPopup("<i>pepe</i>").addTo(map);
-//
-//	var usuCambre = L.marker(
-//						[ 43.29210173197645, -8.344515647049395 ], {
-//							title : "usuCambre",
-//							draggable : false,
-//							opacity : 1,
-//							icon : Icono
-//						}).bindPopup("<i>usuCambre</i>").addTo(map);
-//
-//	var pruebaUsuario = L.marker(
-//						[ 43.35577793290818, -8.406004672215566 ], {
-//							title : "pruebaUsuario",
-//							draggable : false,
-//							opacity : 1,
-//							icon : Icono
-//						}).bindPopup('<a href="usuario.html?alias=pruebaUsuario">pruebaUsuario</a>').addTo(map);
+	
 });
 
+function marcarMapa(datos, map, icono) {
+	$.ajax({
+		url: location.protocol + '//nominatim.openstreetmap.org/search?format=json&q='+unescape(encodeURIComponent(datos.localidad)),
+		success: function (data) {
+			if(Array.isArray(data) && data.length > 0) {
+				var coord = null;
+				for(var i = 0; i<data.length;i++) {
+					var encontrado = false;
+					if(Array.isArray(markers) && markers.length > 0) {
+						for(var j = 0; j<markers.length; j++) {
+							if(data[i].lat === markers[j].lat && data[i].lon === markers[j].lon) {
+								encontrado = true;
+								break;
+							}
+						}
+					}
+					if(!encontrado) {
+						coord = {
+							lat: data[i].lat,
+							lon: data[i].lon
+						};
+						markers.push(coord);
+						break;
+					}
+				}
+				if(coord !== null) {
+					L.marker(
+					[ coord.lat, coord.lon ], {
+						title : datos.alias,
+						draggable : false,
+						opacity : 1,
+						icon : icono
+					}).bindPopup('<a href="usuario.html?alias=' + datos.alias + '">'+ datos.alias +'</a>').addTo(map);
+				}
+			}   
+		}
+	});
+}
