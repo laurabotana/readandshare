@@ -9,6 +9,7 @@ import java.util.TimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,10 +38,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 	private MensajeRepository mensajeRepository;
 	
 	private void validate(UsuarioDTO usuarioDTO) throws ReadandshareException {
-		if(usuarioDTO == null || usuarioDTO.getApellidos() == null || usuarioDTO.getLocalidad() == null
-				|| usuarioDTO.getLogin() == null || usuarioDTO.getMail() == null || usuarioDTO.getNombre() == null
-				|| usuarioDTO.getPassword() == null || usuarioDTO.getProvincia() == null) {
+		if(usuarioDTO == null || StringUtils.isEmpty(usuarioDTO.getApellidos()) || StringUtils.isEmpty(usuarioDTO.getLocalidad())
+				|| StringUtils.isEmpty(usuarioDTO.getLogin()) || StringUtils.isEmpty(usuarioDTO.getMail()) || StringUtils.isEmpty(usuarioDTO.getNombre())
+				|| StringUtils.isEmpty(usuarioDTO.getPassword()) || StringUtils.isEmpty(usuarioDTO.getProvincia())) {
 			throw new ReadandshareException("Existen campos obligatorios de Usuario que no se han cubierto");
+		}
+	}
+	
+	private void validate(MensajeDTO mensajeDTO) throws ReadandshareException {
+		if(mensajeDTO == null || mensajeDTO.getEmisor() == null || mensajeDTO.getReceptor() == null
+				|| StringUtils.isEmpty(mensajeDTO.getMensaje())) {
+			throw new ReadandshareException("Existen campos obligatorios de Mensaje que no se han cubierto");
 		}
 	}
 	
@@ -105,6 +113,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	@Override
 	public void createMensaje(MensajeDTO mensajeDTO) throws ReadandshareException {
+		this.validate(mensajeDTO);
 		Usuario emisor = this.usuarioRepository.consultarUsuario(mensajeDTO.getEmisor());
 		Usuario receptor = this.usuarioRepository.consultarUsuario(mensajeDTO.getReceptor());
 		Mensaje mensaje = new Mensaje();

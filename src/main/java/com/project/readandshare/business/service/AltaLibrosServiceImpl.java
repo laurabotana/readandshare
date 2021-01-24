@@ -52,30 +52,30 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 	@Autowired
 	private LibroGeneroRepository libroGeneroRepository;
 	
-	private void validateValoracion(DatosValoracionLibroDTO datosValoracion) throws ReadandshareException {
+	private void validate(DatosValoracionLibroDTO datosValoracion) throws ReadandshareException {
 		if(datosValoracion == null || datosValoracion.getIdLibro() == null || datosValoracion.getIdUsuario() == null
 				|| datosValoracion.getNota() == null) {
 			throw new ReadandshareException("Existen campos obligatorios de Valoración que no se han cubierto");
 		}
 	}
 	
-	private void validateAutor(AutorDTO autorDTO) throws ReadandshareException {
-		if(autorDTO == null || autorDTO.getNombre() == null) {
+	private void validate(AutorDTO autorDTO) throws ReadandshareException {
+		if(autorDTO == null || StringUtils.isEmpty(autorDTO.getNombre())) {
 			throw new ReadandshareException("Existen campos obligatorios de Autor que no se han cubierto");
 		}
 	}
 	
-	private void validateLibro(LibroDTO libroDTO) throws ReadandshareException {
-		if(libroDTO == null || libroDTO.getAno() == null || libroDTO.getAutor() == null || libroDTO.getEditorial() == null
+	private void validate(LibroDTO libroDTO) throws ReadandshareException {
+		if(libroDTO == null || libroDTO.getAno() == null || libroDTO.getAutor() == null || StringUtils.isEmpty(libroDTO.getEditorial())
 				|| libroDTO.getImagen() == null || libroDTO.getImagen().getSize() == 0
-				|| libroDTO.getSinopsis() == null || libroDTO.getTitulo() == null) {
+				|| StringUtils.isEmpty(libroDTO.getSinopsis()) || StringUtils.isEmpty(libroDTO.getTitulo())) {
 			throw new ReadandshareException("Existen campos obligatorios de Libro que no se han cubierto");
 		}
 	}
 	
 	@Override
 	public void createAutor(AutorDTO autorDTO) throws ReadandshareException {
-		this.validateAutor(autorDTO);
+		this.validate(autorDTO);
 		Autor autor = new Autor();
 		autor.setNombre(autorDTO.getNombre());
 		this.autorRepository.save(autor);
@@ -83,7 +83,7 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 
 	@Override
 	public void createLibro(LibroDTO libroDTO) throws ReadandshareException {
-		this.validateLibro(libroDTO);
+		this.validate(libroDTO);
 		Autor autor = this.autorRepository.consultarAutor(libroDTO.getAutor());
 		Genero genero = this.generoRepository.consultarGenero(libroDTO.getGenero());
 		Libro libro = new Libro();
@@ -181,7 +181,7 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 
 	@Override
 	public void altaValoracion(DatosValoracionLibroDTO datosValoracion) throws ReadandshareException {
-		this.validateValoracion(datosValoracion);
+		this.validate(datosValoracion);
 		Libro libro = this.libroRepository.consultarDetalleLibro(datosValoracion.getIdLibro());
 		Usuario usuario = this.usuarioRepository.consultarUsuario(datosValoracion.getIdUsuario());
 		Valoracion valoracion = new Valoracion();
