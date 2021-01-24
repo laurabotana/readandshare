@@ -37,7 +37,7 @@ public class AltaLibrosController {
 		return sesionIniciada;
 	}
 
-	@RequestMapping(value="/formAutor.html")
+	@RequestMapping(value="/formAutor.html", method = RequestMethod.GET)
 	public ModelAndView formAutor(HttpServletRequest request) {
 		Boolean sesionIniciada = this.tieneSesionIniciada(request);
 		if(Boolean.FALSE.equals(sesionIniciada)) {
@@ -45,6 +45,8 @@ public class AltaLibrosController {
 		}
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		myModel.put("sesionIniciada", sesionIniciada);
+		UsuarioDTO usuario = (UsuarioDTO) request.getSession().getAttribute("usuarioLogueado");
+		myModel.put("alias", usuario.getLogin());
 		return new ModelAndView("formAutor", "model", myModel);
 	}
 
@@ -54,7 +56,7 @@ public class AltaLibrosController {
 		return new ModelAndView(new RedirectView("home.html"));
 	}
 
-	@RequestMapping(value="/formLibro.html")
+	@RequestMapping(value="/formLibro.html", method = RequestMethod.GET)
 	public ModelAndView formLibro(HttpServletRequest request) throws ReadandshareException {
 		Boolean sesionIniciada = this.tieneSesionIniciada(request);
 		if(Boolean.FALSE.equals(sesionIniciada)) {
@@ -66,6 +68,8 @@ public class AltaLibrosController {
 		myModel.put("autores", autores);
 		myModel.put("generos", generos);
 		myModel.put("sesionIniciada", sesionIniciada);
+		UsuarioDTO usuario = (UsuarioDTO) request.getSession().getAttribute("usuarioLogueado");
+		myModel.put("alias", usuario.getLogin());
 		return new ModelAndView("formLibro", "model", myModel);
 	}
 
@@ -75,7 +79,7 @@ public class AltaLibrosController {
 		return new ModelAndView(new RedirectView("home.html"));
 	}
 
-	@RequestMapping(value="/libro.html")
+	@RequestMapping(value="/libro.html", method = RequestMethod.GET)
 	public ModelAndView detalleLibro(HttpServletRequest request, @RequestParam("id") Integer idLibro) throws ReadandshareException {
 		Boolean sesionIniciada = this.tieneSesionIniciada(request);
 		Map<String, Object> myModel = new HashMap<String, Object>();
@@ -83,6 +87,10 @@ public class AltaLibrosController {
 		myModel.put("libro", libroDTO);
 		myModel.put("libroValorado", Boolean.FALSE);
 		myModel.put("sesionIniciada", sesionIniciada);
+		if(Boolean.TRUE.equals(sesionIniciada)) {
+			UsuarioDTO usuario = (UsuarioDTO) request.getSession().getAttribute("usuarioLogueado");
+			myModel.put("alias", usuario.getLogin());
+		}
 		List<ValoracionDTO> valoraciones = this.altaLibrosService.getListaValoraciones(idLibro);
 		myModel.put("valoraciones",valoraciones);
 		if(Boolean.TRUE.equals(sesionIniciada)) {
@@ -110,7 +118,7 @@ public class AltaLibrosController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/autor.html")
+	@RequestMapping(value="/autor.html", method = RequestMethod.GET)
 	public ModelAndView detalleAutor(HttpServletRequest request, @RequestParam("id") Integer idAutor) throws ReadandshareException {
 		Boolean sesionIniciada = this.tieneSesionIniciada(request);
 		List<LibroDTO> librosAutor= this.altaLibrosService.getLibrosAutor(idAutor);
@@ -120,7 +128,8 @@ public class AltaLibrosController {
 		myModel.put("librosAutor", librosAutor);
 		myModel.put("sesionIniciada", sesionIniciada);
 		if(Boolean.TRUE.equals(sesionIniciada)) {
-//			UsuarioDTO usuarioDTO = (UsuarioDTO) request.getSession().getAttribute("usuarioLogueado");
+			UsuarioDTO usuarioDTO = (UsuarioDTO) request.getSession().getAttribute("usuarioLogueado");
+			myModel.put("alias", usuarioDTO.getLogin());
 			myModel.put("idAutor", idAutor);
 		}
 		return new ModelAndView("detalleAutor", "model", myModel);

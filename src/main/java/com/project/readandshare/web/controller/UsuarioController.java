@@ -33,7 +33,7 @@ public class UsuarioController {
     	return sesionIniciada;
     }
      
-    @RequestMapping(value="/miPerfil.html")
+    @RequestMapping(value="/miPerfil.html", method = RequestMethod.GET)
     public ModelAndView miPerfil(HttpServletRequest request) {
     	Boolean sesionIniciada = this.tieneSesionIniciada(request);
     	if(Boolean.FALSE.equals(sesionIniciada)) {
@@ -42,14 +42,15 @@ public class UsuarioController {
     	UsuarioDTO usuarioDTO = (UsuarioDTO) request.getSession().getAttribute("usuarioLogueado");
     	List<MensajeDTO> mensajes = this.usuarioService.getMisMensajes(usuarioDTO.getId());
     	
-    	 Map<String, Object> miPerfil = new HashMap<String, Object>();
+    	Map<String, Object> miPerfil = new HashMap<String, Object>();
         miPerfil.put("sesionIniciada", sesionIniciada);
+        miPerfil.put("alias", usuarioDTO.getLogin());
         miPerfil.put("usuario", usuarioDTO);
         miPerfil.put("mensajes", mensajes);
         return new ModelAndView("miPerfil", "model", miPerfil);
     }
     
-    @RequestMapping(value="/login.html")
+    @RequestMapping(value="/login.html", method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request) {
     	Boolean sesionIniciada = this.tieneSesionIniciada(request);
     	if(Boolean.TRUE.equals(sesionIniciada)) {
@@ -60,7 +61,7 @@ public class UsuarioController {
         return new ModelAndView("login", "model", myModel);
     }
 
-    @RequestMapping(value="/logout.html")
+    @RequestMapping(value="/logout.html", method = RequestMethod.GET)
     public ModelAndView logout(HttpServletRequest request) {
     	Boolean sesionIniciada = this.tieneSesionIniciada(request);
     	if(Boolean.TRUE.equals(sesionIniciada)) {
@@ -69,7 +70,7 @@ public class UsuarioController {
         return new ModelAndView(new RedirectView("home.html"));
     }
     
-    @RequestMapping(value="/formRegistro.html")
+    @RequestMapping(value="/formRegistro.html", method = RequestMethod.GET)
     public ModelAndView formRegistro() {		
         Map<String, Object> myModel = new HashMap<String, Object>();
         myModel.put("sesionIniciada", Boolean.FALSE);
@@ -96,7 +97,7 @@ public class UsuarioController {
 		return model;
 	}
 	
-	@RequestMapping(value="/usuario.html")
+	@RequestMapping(value="/usuario.html", method = RequestMethod.GET)
 	public ModelAndView usuario(HttpServletRequest request, @RequestParam("alias") String alias) throws ReadandshareException {
 		Boolean sesionIniciada = this.tieneSesionIniciada(request);
 		if(Boolean.FALSE.equals(sesionIniciada)) {
@@ -104,9 +105,11 @@ public class UsuarioController {
     	}
 		UsuarioDTO usuarioDTO = usuarioService.consultarDatosUsuario(alias);
         Map<String, Object> usuario = new HashMap<String, Object>();
-        usuario.put("sesionIniciada", sesionIniciada);
+        usuario.put("sesionIniciada", sesionIniciada);        
         usuario.put("usuario", usuarioDTO);
-        usuario.put("usuarioOrigen", request.getSession().getAttribute("usuarioLogueado"));
+        UsuarioDTO usuarioOrigen = (UsuarioDTO) request.getSession().getAttribute("usuarioLogueado");
+        usuario.put("usuarioOrigen", usuarioOrigen);
+        usuario.put("alias", usuarioOrigen.getLogin());
         return new ModelAndView("usuario", "model", usuario);
 	}
 	

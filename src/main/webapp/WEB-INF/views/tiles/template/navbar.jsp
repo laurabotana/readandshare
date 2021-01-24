@@ -20,6 +20,7 @@
 				</li>
 				<li class="nav-item"><a class="nav-link"
 					href="formRegistro.html">Registrarse</a></li>
+			</ul>
 			</c:when>
 		  	<c:otherwise>
 				<li class="nav-item"><a class="nav-link" href="miPerfil.html">Mi
@@ -30,10 +31,11 @@
 						Libro</a></li>
 				<li class="nav-item"><a class="nav-link" href="cercanos.html">Buscar
 						cercanos</a></li>
-				<li class="nav-item"><a class="nav-link" href="logout.html">Cerrar
-							sesión</a></li>
-			
-				
+				</ul>
+				<ul class="navbar-nav navbar-right">
+					<li class="nav-item"><a class="nav-link" href="logout.html">Cerrar
+							sesión ${model.alias}</a></li>
+				</ul>
 			</c:otherwise>
 		  </c:choose>
 		</ul>
