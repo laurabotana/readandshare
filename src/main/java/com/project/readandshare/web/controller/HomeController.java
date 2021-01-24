@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.project.readandshare.business.exception.ReadandshareException;
 import com.project.readandshare.business.service.AltaLibrosService;
 import com.project.readandshare.business.service.UsuarioService;
+import com.project.readandshare.dto.UsuarioDTO;
 import com.project.readandshare.dto.ValoracionLibroDTO;
 
 @Controller
@@ -45,8 +46,12 @@ public class HomeController {
 	@RequestMapping(value = "/cercanos.html")
 	public ModelAndView cercanos(HttpServletRequest request) {
 		Map<String, Object> myModel = new HashMap<String, Object>();
-		myModel.put("sesionIniciada", this.tieneSesionIniciada(request));
-		myModel.put("usuariosCercanos", this.usuarioService.getUsuariosCercanos());
+		Boolean sesionIniciada = this.tieneSesionIniciada(request);
+		myModel.put("sesionIniciada", sesionIniciada);
+		if(Boolean.TRUE.equals(sesionIniciada)) {
+			UsuarioDTO usuarioSesion = (UsuarioDTO) request.getSession().getAttribute("usuarioLogueado");
+			myModel.put("usuariosCercanos", this.usuarioService.getUsuariosCercanos(usuarioSesion.getId()));
+		}
 		return new ModelAndView("cercanos", "model", myModel);
 	}
 }

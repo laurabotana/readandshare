@@ -20,6 +20,6 @@ public interface UsuarioService {
 	
 	List<MensajeDTO> getMisMensajes(Integer id);
 	
-	String getUsuariosCercanos();
+	String getUsuariosCercanos(Integer id);
 	
 }

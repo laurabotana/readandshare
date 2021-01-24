@@ -140,9 +140,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public String getUsuariosCercanos() {
+	public String getUsuariosCercanos(Integer id) {
 		String usuariosCercanosString = null;
-		List<Usuario> listaUsuarios = this.usuarioRepository.consultarUsuarios();
+		List<Usuario> listaUsuarios = this.usuarioRepository.consultarUsuariosCercanos(id);
 		List<UsuarioCercanoDTO> listaUsuarioCercano = new ArrayList<UsuarioCercanoDTO>();
 		if(!CollectionUtils.isEmpty(listaUsuarios)) {
 			for(Usuario u: listaUsuarios) {

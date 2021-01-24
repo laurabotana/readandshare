@@ -17,9 +17,9 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
 
 	@Query("SELECT u FROM Usuario u WHERE u.id = :idUsuario")
 	Usuario consultarUsuario(@Param("idUsuario") Integer idUsuario);
-	
-	@Query("SELECT u FROM Usuario u")
-	List<Usuario> consultarUsuarios();
+
+	@Query("SELECT u FROM Usuario u WHERE u.id <> :idUsuario")
+	List<Usuario> consultarUsuariosCercanos(@Param("idUsuario") Integer idUsuario);
 	
 
 }
