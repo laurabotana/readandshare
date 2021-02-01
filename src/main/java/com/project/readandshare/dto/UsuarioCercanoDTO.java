@@ -4,6 +4,7 @@ public class UsuarioCercanoDTO {
 	
 	private String alias;
 	private String localidad;
+	private String provincia;
 	
 	public UsuarioCercanoDTO() {
 		super();
@@ -23,6 +24,14 @@ public class UsuarioCercanoDTO {
 
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
 	}
 
 }

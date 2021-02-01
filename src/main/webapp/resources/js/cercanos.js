@@ -35,7 +35,7 @@ $( document ).ready(function() {
 
 function marcarMapa(datos, map, icono) {
 	$.ajax({
-		url: location.protocol + '//nominatim.openstreetmap.org/search?format=json&q='+unescape(encodeURIComponent(datos.localidad)),
+		url: location.protocol + '//nominatim.openstreetmap.org/search?format=json&q='+unescape(encodeURIComponent(datos.localidad + ', ' + datos.provincia)),
 		success: function (data) {
 			if(Array.isArray(data) && data.length > 0) {
 				var coord = null;

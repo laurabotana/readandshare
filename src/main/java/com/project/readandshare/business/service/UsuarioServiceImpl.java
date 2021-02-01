@@ -158,6 +158,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 				UsuarioCercanoDTO usuarioCercanoDTO = new UsuarioCercanoDTO();
 				usuarioCercanoDTO.setAlias(u.getLogin());
 				usuarioCercanoDTO.setLocalidad(u.getLocalidad());
+				usuarioCercanoDTO.setProvincia(u.getProvincia());
 				listaUsuarioCercano.add(usuarioCercanoDTO);
 			}
 			ObjectMapper mapper = new ObjectMapper();
