@@ -104,6 +104,10 @@ public class UsuarioController {
     		return new ModelAndView(new RedirectView("login.html"));
     	}
 		UsuarioDTO usuarioDTO = usuarioService.consultarDatosUsuario(alias);
+		if(!usuarioDTO.isVisible()) {
+			usuarioDTO.setProvincia(null);
+			usuarioDTO.setLocalidad(null);
+		}
         Map<String, Object> usuario = new HashMap<String, Object>();
         usuario.put("sesionIniciada", sesionIniciada);        
         usuario.put("usuario", usuarioDTO);

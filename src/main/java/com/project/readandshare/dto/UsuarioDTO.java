@@ -10,6 +10,7 @@ public class UsuarioDTO {
 	private String apellidos;
 	private String provincia;
 	private String localidad;
+	private boolean visible;
 	
 	public UsuarioDTO() {
 		super();
@@ -78,5 +79,15 @@ public class UsuarioDTO {
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+
 
 }

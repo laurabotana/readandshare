@@ -63,6 +63,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuario.setApellidos(usuarioDTO.getApellidos());
 		usuario.setProvincia(usuarioDTO.getProvincia());
 		usuario.setLocalidad(usuarioDTO.getLocalidad());
+		usuario.setVisible(usuarioDTO.isVisible());
 		this.usuarioRepository.save(usuario);
 	}
 
@@ -90,27 +91,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 			usuarioDTO.setId(usuario.getId());
 			usuarioDTO.setLogin(usuario.getLogin());
 			usuarioDTO.setApellidos(usuario.getApellidos());
-			usuarioDTO.setLocalidad(usuario.getLocalidad());
 			usuarioDTO.setMail(usuario.getMail());
 			usuarioDTO.setNombre(usuario.getNombre());
 			usuarioDTO.setProvincia(usuario.getProvincia());
-		}
-		return usuarioDTO;
-	}
-	
-	@Override
-	public UsuarioDTO consultarUsuario(String login) {
-		UsuarioDTO usuarioDTO = new UsuarioDTO();
-		Usuario usuario = this.usuarioRepository.consultarUsuario(login);
-		if(usuario != null) {
-			usuarioDTO.setId(usuario.getId());
-			usuarioDTO.setLogin(usuario.getLogin());
 			usuarioDTO.setLocalidad(usuario.getLocalidad());
-			usuarioDTO.setProvincia(usuario.getProvincia());
+			usuarioDTO.setVisible(usuario.isVisible());
 		}
 		return usuarioDTO;
 	}
 	
+		
 	@Override
 	public void createMensaje(MensajeDTO mensajeDTO) throws ReadandshareException {
 		this.validate(mensajeDTO);

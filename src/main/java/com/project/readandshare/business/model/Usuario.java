@@ -39,6 +39,9 @@ public class Usuario {
 
     @Column(name = "LOCALIDAD", nullable = false)
     private String localidad;
+    
+    @Column(name = "VISIBLE")
+    private boolean visible;
 
 	public Usuario() {
 		super();
@@ -107,5 +110,15 @@ public class Usuario {
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+	
 	
 }

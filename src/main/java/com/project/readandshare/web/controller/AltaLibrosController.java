@@ -111,7 +111,7 @@ public class AltaLibrosController {
 			UsuarioDTO usuarioLogueado = (UsuarioDTO) request.getSession().getAttribute("usuarioLogueado");
 			datosValoracion.setIdUsuario(usuarioLogueado.getId());
 			this.altaLibrosService.altaValoracion(datosValoracion);
-			mav = new ModelAndView(new RedirectView("libro" + datosValoracion.getIdLibro().toString() + ".html"));
+			mav = new ModelAndView(new RedirectView("libro.html?id=" + datosValoracion.getIdLibro().toString()));
 		} else {
 			mav = new ModelAndView(new RedirectView("login.html")); 
 		}

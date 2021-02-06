@@ -54,6 +54,12 @@
 							name="localidad" required>
 					</div>
 				</div>
+				
+				<div class="form-check">
+    				<input type="checkbox" class="form-check-input" id="visible" name="visible" value="true">
+    				<label class="form-check-label" for="visible">Mostrar datos a otros usuarios</label>
+
+				</div>
 
 				<div class="form-group col-12">
 					<br />

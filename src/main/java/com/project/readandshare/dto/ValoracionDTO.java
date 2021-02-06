@@ -4,6 +4,7 @@ public class ValoracionDTO {
 	
 	private Integer nota;
 	private String usuario;
+	private Boolean usuarioVisible;
 	private String critica;
 	
 	public ValoracionDTO() {
@@ -21,6 +22,15 @@ public class ValoracionDTO {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
+	
+	
+	public Boolean getUsuarioVisible() {
+		return usuarioVisible;
+	}
+	public void setUsuarioVisible(Boolean usuarioVisible) {
+		this.usuarioVisible = usuarioVisible;
+	}
+	
 	public String getCritica() {
 		return critica;
 	}

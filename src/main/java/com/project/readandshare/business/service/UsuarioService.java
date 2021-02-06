@@ -14,8 +14,6 @@ public interface UsuarioService {
 	
 	UsuarioDTO consultarDatosUsuario(String login);
 	
-	UsuarioDTO consultarUsuario(String login);
-	
 	void createMensaje(MensajeDTO mensajeDTO) throws ReadandshareException;
 	
 	List<MensajeDTO> getMisMensajes(Integer id);

@@ -223,7 +223,7 @@ public class AltaLibrosServiceImpl implements AltaLibrosService {
 				valoracionDTO.setUsuario(valoracion.getUsuario().getLogin());
 				valoracionDTO.setNota(valoracion.getNota());
 				valoracionDTO.setCritica(valoracion.getCritica());
-			
+				valoracionDTO.setUsuarioVisible(valoracion.getUsuario().isVisible());
 				valoracionesDTO.add(valoracionDTO);
 			}
 		}
