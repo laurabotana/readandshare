@@ -14,7 +14,7 @@ $( document ).ready(function() {
 								}).addTo(map);
 
 	var Icono = L.icon({
-							iconUrl : "https://icons.getbootstrap.com/icons/person.svg",
+							iconUrl : "static/img/person.svg",
 							iconSize : [ 30, 40 ],
 							iconAnchor : [ 15, 40 ],
 							popupAnchor : [ 0, -40 ]
